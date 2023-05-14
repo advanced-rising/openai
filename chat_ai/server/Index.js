@@ -72,10 +72,23 @@ app.post('/fortuneTell', async function (req, res) {
     }
   }
 
-  const completion = await openai.createChatCompletion({
-    model: 'gpt-3.5-turbo',
-    messages: messages,
-  });
+  const maxRetries = 3;
+  let retries = 0;
+  let completion;
+  while (retries < maxRetries) {
+    try {
+      completion = await openai.createChatCompletion({
+        model: 'gpt-3.5-turbo',
+        messages: messages,
+      });
+      break;
+    } catch (error) {
+      retries++;
+      console.log(error);
+      console.log(`Error fetching data, retrying (${retries}/${maxRetries})...`);
+    }
+  }
+
   let fortune = completion.data.choices[0].message['content'];
 
   res.json({ assistant: fortune });

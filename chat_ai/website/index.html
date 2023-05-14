@@ -93,6 +93,18 @@
         font-size: 25px;
         text-align: center;
       }
+
+      .kakao-ad {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        min-width: 350px;
+        min-height: 200px;
+      }
+      .toss-send {
+        font-weight: bold;
+      }
     </style>
   </head>
 
@@ -145,6 +157,16 @@
         <input type="text" placeholder="Type your message here..." />
         <button id="btn" onclick="spinner()">Send</button>
       </div>
+    </div>
+    <div class="'kakao-ad">
+      <ins
+        class="kakao_ad_area"
+        style="display: none"
+        data-ad-unit="DAN-GhqbKOvhEQffVDGb"
+        data-ad-width="320"
+        data-ad-height="100"
+      ></ins>
+      <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
     </div>
     <script>
       const chatBox = document.querySelector('.chat-box');
@@ -207,9 +229,16 @@
 
         const astrologerMessage = document.createElement('div');
         astrologerMessage.classList.add('chat-message');
-        astrologerMessage.innerHTML = `
-    <p class='assistant'>${data.assistant}</p>
-  `;
+        astrologerMessage.innerHTML = `<p class='assistant'>${data.assistant}</p>`;
+        const p = document.createElement('p');
+        p.innerHTML = '추가로 링크를 눌러 작은 정성 배풀어주시면 더욱 좋은 운이 있으실겁니다. => ';
+        p.classList.add('assistant');
+        const link = document.createElement('a');
+        link.href = 'https://toss.me/risingcore';
+        link.innerHTML = '복채 보내기';
+        p.appendChild(link);
+        astrologerMessage.appendChild(p);
+        ("<p class='toss-send'> <a href='https://toss.me/risingcore'>복채 보내기</a></p>");
         chatBox.appendChild(astrologerMessage);
       };
 
